@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Source all the scripts in .profile.d
+for script in ~/.profile.d/*.sh; do
+  source "$script"
+done
+
+# Check if SHELL_COMMAND exists and is not blank
+if [[ -n "$SHELL_COMMAND" ]]; then
+  # Base64 decode the command
+  decoded_command=$(echo "$SHELL_COMMAND" | base64 --decode)
+
+  # Execute the decoded command
+  eval "$decoded_command"
+fi
+
+# The runner
+runner="python runner.py"
+
+# Run the program, passing the contents of the CODE environment variable as an argument
+$runner "$CODE"
+
+# Capture the exit code
+exit_code=$?
+
+# Print the exit code in the required format
+echo "exit_code: $exit_code"

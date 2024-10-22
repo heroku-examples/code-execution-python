@@ -1,0 +1,19 @@
+{
+  "name": "code-exec-python",
+  "description": "Use Heroku Dynos as a Python code execution environment in your AI applications.",
+  "logo": "https://raw.githubusercontent.com/heroku-examples/code-execution-python/refs/heads/main/python.png",
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "env": {},
+  "formation": {
+    "web": {
+      "quantity": 0
+    }
+  },
+  "addons": [],
+  "scripts": {},
+  "stack": "heroku-24"
+}
