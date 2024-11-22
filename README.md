@@ -4,7 +4,7 @@ Use Heroku Dynos as a Python code execution environment within your AI applicati
 
 Best of all, the app is free to deploy and does not require actively running Dynos.
 
-<img src="python.png" alt="Heroku Python" width="540">
+<img src="python.png" alt="Heroku Python" width="250">
 
 ## Deploy the app on Heroku
 
