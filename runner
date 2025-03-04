@@ -5,27 +5,35 @@ for script in ~/.profile.d/*.sh; do
   source "$script"
 done
 
-# Create and activate virtual environment
-python -m venv venv
-source venv/bin/activate
-
 # Check if SHELL_COMMAND exists and is not blank
 if [[ -n "$SHELL_COMMAND" ]]; then
-  # Base64 decode the command
-  decoded_command=$(echo "$SHELL_COMMAND" | base64 --decode)
+  # Base64 decode the command into a file
+  echo "$SHELL_COMMAND" | base64 --decode > ./setup_commands.sh
 
-  # Execute the decoded command
-  eval "$decoded_command"
+  # Make it executable
+  chmod +x ./setup_commands.sh
+
+  # Execute the file directly
+  ./setup_commands.sh
+
+  # Print confirmation
+  echo "Setup commands executed from file"
 fi
 
-# The runner
-runner="python runner.py"
+# For the Python code, also write to file instead of passing as argument
+if [[ -n "$CODE" ]]; then
+  # Decode and write Python code to file
+  echo "$CODE" | base64 --decode > ./code_to_run.py
 
-# Run the program, passing the contents of the CODE environment variable as an argument
-$runner "$CODE"
+  # Execute the Python file directly instead of using runner.py
+  python ./code_to_run.py
 
-# Capture the exit code
-exit_code=$?
+  # Capture the exit code
+  exit_code=$?
+else
+  echo "No CODE provided"
+  exit_code=1
+fi
 
 # Print the exit code in the required format
 echo "exit_code: $exit_code"
