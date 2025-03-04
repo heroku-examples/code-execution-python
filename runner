@@ -5,6 +5,10 @@ for script in ~/.profile.d/*.sh; do
   source "$script"
 done
 
+# Create and activate virtual environment
+python -m venv venv
+source venv/bin/activate
+
 # Check if SHELL_COMMAND exists and is not blank
 if [[ -n "$SHELL_COMMAND" ]]; then
   # Base64 decode the command
